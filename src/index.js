@@ -1,17 +1,33 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import useList from "./hooks/useList"
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const rootElement = document.querySelector('#root')
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const App = () => {
+  const {list, deleteIndex} = useList()
+  return (
+    <div>
+      <h1>List</h1>
+      {list
+        ? (<ol>
+          {list.map((item, index) => (
+            <li key={item.id}>{item.name}
+              <button onClick={() => {
+                deleteIndex(index)
+              }}>x
+              </button>
+            </li>
+          ))}</ol>)
+        : ("加载中...")
+      }
+    </div>
+  )
+}
+
+ReactDOM.render(<App/>, rootElement)
+
+
+
+
+
